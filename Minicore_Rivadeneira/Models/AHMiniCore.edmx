@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AHMiniCoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Pases">
+          <Key>
+            <PropertyRef Name="PaseID" />
+          </Key>
+          <Property Name="PaseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioID" Type="int" Nullable="false" />
+          <Property Name="FechaCompra" Type="datetime" Nullable="false" />
+          <Property Name="TtipoPase" Type="nvarchar(max)" />
+          <Property Name="FinTentativo" Type="datetime" />
+          <Property Name="pasesRestantes" Type="int" />
+          <Property Name="saldoRestante" Type="float" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar(max)" />
+          <Property Name="Pword" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_dbo_Pases_dbo_Usuarios_UsuarioID">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Pases" Type="Self.Pases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Pases">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AHMiniCoreModelStoreContainer">
+          <EntitySet Name="Pases" EntityType="Self.Pases" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_Pases_dbo_Usuarios_UsuarioID" Association="Self.FK_dbo_Pases_dbo_Usuarios_UsuarioID">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Pases" EntitySet="Pases" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AHMiniCoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Pas">
+          <Key>
+            <PropertyRef Name="PaseID" />
+          </Key>
+          <Property Name="PaseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" />
+          <Property Name="FechaCompra" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TtipoPase" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FinTentativo" Type="DateTime" Precision="3" />
+          <Property Name="pasesRestantes" Type="Int32" />
+          <Property Name="saldoRestante" Type="Double" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_dbo_Pases_dbo_Usuarios_UsuarioID" FromRole="Pases" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioID" />
+          </Key>
+          <Property Name="UsuarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Pword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pases" Relationship="Self.FK_dbo_Pases_dbo_Usuarios_UsuarioID" FromRole="Usuarios" ToRole="Pases" />
+        </EntityType>
+        <Association Name="FK_dbo_Pases_dbo_Usuarios_UsuarioID">
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Pases" Type="Self.Pas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="UsuarioID" />
+            </Principal>
+            <Dependent Role="Pases">
+              <PropertyRef Name="UsuarioID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbf62c9ea3413d4d87b292aec9009e0e71Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Pases" EntityType="Self.Pas" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_dbo_Pases_dbo_Usuarios_UsuarioID" Association="Self.FK_dbo_Pases_dbo_Usuarios_UsuarioID">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Pases" EntitySet="Pases" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AHMiniCoreModelStoreContainer" CdmEntityContainer="dbf62c9ea3413d4d87b292aec9009e0e71Entities">
+          <EntitySetMapping Name="Pases">
+            <EntityTypeMapping TypeName="AHMiniCoreModel.Pas">
+              <MappingFragment StoreEntitySet="Pases">
+                <ScalarProperty Name="PaseID" ColumnName="PaseID" />
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="FechaCompra" ColumnName="FechaCompra" />
+                <ScalarProperty Name="TtipoPase" ColumnName="TtipoPase" />
+                <ScalarProperty Name="FinTentativo" ColumnName="FinTentativo" />
+                <ScalarProperty Name="pasesRestantes" ColumnName="pasesRestantes" />
+                <ScalarProperty Name="saldoRestante" ColumnName="saldoRestante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="AHMiniCoreModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Pword" ColumnName="Pword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

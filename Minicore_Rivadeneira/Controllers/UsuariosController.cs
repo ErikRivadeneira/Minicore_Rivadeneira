@@ -12,7 +12,7 @@ namespace Minicore_Rivadeneira.Controllers
 {
     public class UsuariosController : Controller
     {
-        private miniCoreDBContext db = new miniCoreDBContext();
+        private dbf62c9ea3413d4d87b292aec9009e0e71Entities db = new dbf62c9ea3413d4d87b292aec9009e0e71Entities();
 
         // GET: Usuarios
         public ActionResult Index()

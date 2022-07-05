@@ -55,6 +55,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -133,9 +135,27 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\miniCoreDBContext.cs" />
-    <Compile Include="Models\Pase.cs" />
-    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\AHMiniCore.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AHMiniCore.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AHMiniCore.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AHMiniCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AHMiniCore.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AHMiniCore.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Pas.cs">
+      <DependentUpon>AHMiniCore.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Usuario.cs">
+      <DependentUpon>AHMiniCore.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -188,8 +208,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\AHMiniCore.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AHMiniCore.edmx</DependentUpon>
+      <LastGenOutput>AHMiniCore.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\AHMiniCore.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AHMiniCore.edmx</DependentUpon>
+      <LastGenOutput>AHMiniCore.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\AHMiniCore.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AHMiniCore.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\AHMiniCore.edmx.diagram">
+      <DependentUpon>AHMiniCore.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -243,6 +280,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

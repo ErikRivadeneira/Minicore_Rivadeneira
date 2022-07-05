@@ -12,7 +12,7 @@ namespace Minicore_Rivadeneira.Controllers
 {
     public class PasesController : Controller
     {
-        private miniCoreDBContext db = new miniCoreDBContext();
+        private dbf62c9ea3413d4d87b292aec9009e0e71Entities db = new dbf62c9ea3413d4d87b292aec9009e0e71Entities();
 
         // GET: Pases
         public ActionResult Index()
@@ -25,8 +25,8 @@ namespace Minicore_Rivadeneira.Controllers
         {
             DateTime hoy = DateTime.Now;
             var pases = db.Pases.Include(p => p.Usuario).ToList();
-            List<Pase> activos = new List<Pase>();
-            foreach(Pase pass in pases)
+            List<Pas> activos = new List<Pas>();
+            foreach(Pas pass in pases)
             {
                 TimeSpan res = hoy - fechainicio;
                 double pasesUsados = res.Days;
@@ -71,7 +71,7 @@ namespace Minicore_Rivadeneira.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pase pase = db.Pases.Find(id);
+            Pas pase = db.Pases.Find(id);
             if (pase == null)
             {
                 return HttpNotFound();
@@ -91,7 +91,7 @@ namespace Minicore_Rivadeneira.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PaseID,UsuarioID,FechaCompra,TtipoPase")] Pase pase)
+        public ActionResult Create([Bind(Include = "PaseID,UsuarioID,FechaCompra,TtipoPase")] Pas pase)
         {
             if (ModelState.IsValid)
             {
@@ -111,7 +111,7 @@ namespace Minicore_Rivadeneira.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pase pase = db.Pases.Find(id);
+            Pas pase = db.Pases.Find(id);
             if (pase == null)
             {
                 return HttpNotFound();
@@ -125,7 +125,7 @@ namespace Minicore_Rivadeneira.Controllers
         // más detalles, vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PaseID,UsuarioID,FechaCompra,TtipoPase")] Pase pase)
+        public ActionResult Edit([Bind(Include = "PaseID,UsuarioID,FechaCompra,TtipoPase")] Pas pase)
         {
             if (ModelState.IsValid)
             {
@@ -144,7 +144,7 @@ namespace Minicore_Rivadeneira.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pase pase = db.Pases.Find(id);
+            Pas pase = db.Pases.Find(id);
             if (pase == null)
             {
                 return HttpNotFound();
@@ -157,7 +157,7 @@ namespace Minicore_Rivadeneira.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Pase pase = db.Pases.Find(id);
+            Pas pase = db.Pases.Find(id);
             db.Pases.Remove(pase);
             db.SaveChanges();
             return RedirectToAction("Index");

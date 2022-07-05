@@ -12,20 +12,16 @@ namespace Minicore_Rivadeneira.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuario
+    public partial class Pas
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuario()
-        {
-            this.Pases = new HashSet<Pas>();
-        }
-    
+        public int PaseID { get; set; }
         public int UsuarioID { get; set; }
-        public string Nombre { get; set; }
-        public string Email { get; set; }
-        public string Pword { get; set; }
+        public System.DateTime FechaCompra { get; set; }
+        public string TtipoPase { get; set; }
+        public Nullable<System.DateTime> FinTentativo { get; set; }
+        public Nullable<int> pasesRestantes { get; set; }
+        public Nullable<double> saldoRestante { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Pas> Pases { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }
